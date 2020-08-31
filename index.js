@@ -58,8 +58,10 @@ server.post('/api/users', (req, res) => {
             ...user
         })
         res.status(201).json({data: users})
-    } else {
+    } else if (!user.bio || !user.name){
         res.status(400).json({errorMessage: "Please provide name and bio for the user."})
+    } else {
+        res.status(500).json({ errorMessage: "There was an error while saving the user to the database" })
     }
 
 })
